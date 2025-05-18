@@ -1,18 +1,18 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://gauravsingh950400:SQY1j6CwnT8Yhkmx@cluster0.i6qi5z6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      uri: mongodb+srv://********:*******@cluster0.i6qi5z6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
   profiles:
     active: dev
 
 quote:
   api:
-    key: Myy6rz/em4QyYLxe2zGcaA==42tPlkfIqasQxRcc
+    key: ***************
 
 textToSpeech:
   api:
-    key: sk_2c3592bcbe4781cf95fa0edb02c2464d92e642b366e72d3e
+    key: ****************
 #logging:
 #  level:
 #    com.journal.walterWhiteJournal.service.UserServices: OFF
