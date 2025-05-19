@@ -1,6 +1,9 @@
 package com.journal.walterWhiteJournal.service;
 
+import com.journal.walterWhiteJournal.cache.AppCache;
 import com.journal.walterWhiteJournal.entity.Quote;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -9,8 +12,14 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class QuoteService {
 
-    @Value("${quote.api.key}")
-    private  String apiKey;
+    @Autowired
+    public AppCache appCache;
+
+    private String apiKey;
+    @PostConstruct
+    private void init() {
+        this.apiKey = appCache.APP_CACHE.get(AppCache.keys.Quote_API.toString());  // safe: appCache is ready
+    }
     private final String url = "https://api.api-ninjas.com/v1/quotes";
 
 

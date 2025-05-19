@@ -29,6 +29,7 @@ public class JournalApplication {
 		return new MongoTransactionManager(dbFactory);
 	}
 
+
 	//platformTransaction Manager
 	//MongoTransaction Manager
 }

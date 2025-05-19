@@ -1,5 +1,6 @@
 package com.journal.walterWhiteJournal.controller;
 
+import com.journal.walterWhiteJournal.cache.AppCache;
 import com.journal.walterWhiteJournal.entity.User;
 import com.journal.walterWhiteJournal.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class AdminController {
     @Autowired
     private UserServices userServices;
     @Autowired
-
+    private AppCache appCache;
 
     @GetMapping("/get-allUsers")
     public ResponseEntity<?> getAllUsers(){
@@ -41,6 +42,11 @@ public class AdminController {
         newUser.setRoles(Arrays.asList("USER","ADMIN"));
         userServices.saveNewUser(newUser);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/clear-app-cache")
+    public void clearAppCache(){
+        appCache.init();
     }
 
 }
