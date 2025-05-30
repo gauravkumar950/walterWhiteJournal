@@ -1,5 +1,6 @@
 package com.journal.walterWhiteJournal.controller;
 
+import com.journal.walterWhiteJournal.Repository.UserRepositoryImp;
 import com.journal.walterWhiteJournal.cache.AppCache;
 import com.journal.walterWhiteJournal.entity.User;
 import com.journal.walterWhiteJournal.service.UserServices;
@@ -20,6 +21,8 @@ public class AdminController {
     private UserServices userServices;
     @Autowired
     private AppCache appCache;
+    @Autowired
+    private UserRepositoryImp userRepositoryImp;
 
     @GetMapping("/get-allUsers")
     public ResponseEntity<?> getAllUsers(){
@@ -48,5 +51,12 @@ public class AdminController {
     public void clearAppCache(){
         appCache.init();
     }
-
+    @GetMapping("/list-of-SA-users")
+    public ResponseEntity<?> getListOfSaUsers(){
+        List<User> list = userRepositoryImp.getUserForSA();
+        if(!list.isEmpty()){
+            return new ResponseEntity<>(list,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

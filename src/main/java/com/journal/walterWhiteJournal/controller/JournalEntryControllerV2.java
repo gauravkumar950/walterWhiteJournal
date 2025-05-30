@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -66,14 +65,8 @@ public class JournalEntryControllerV2 {
     }
 
     @GetMapping("id/{myId}")
-    public ResponseEntity<?> getJournalById(@PathVariable ObjectId myId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = userServices.findByUserName(authentication.getName());
-       List<JournalEntry> collect = currentUser.getJournalEntries().stream().filter(x->x.getId().equals(myId)).collect(Collectors.toList());
-        if(!collect.isEmpty()) {
-            return new ResponseEntity<>(collect, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public JournalEntry getJournalById(@PathVariable ObjectId myId) {
+        return journalEntryServices.getById(myId);
     }
 
     @DeleteMapping("id/{myId}")

@@ -23,7 +23,8 @@ public class JournalEntryServices {
     private JournalRepository journalEntryRepo;
     @Autowired
     private UserServices userServices;
-
+    @Autowired
+    private RedisServices redisServices;
 
    public List<JournalEntry> findAllEntries(){
        return journalEntryRepo.findAll();
@@ -45,9 +46,12 @@ public class JournalEntryServices {
     }
 
     @Nullable
-    public Optional<JournalEntry> getById(ObjectId id) {
+    public JournalEntry getById(ObjectId id) {
+            JournalEntry journal = journalEntryRepo.findById(id).orElse(null);
+            if(journal == null) return null;
+            redisServices.set(id.toString(),journal,300l);
+            return journal;
 
-        return journalEntryRepo.findById(id);
     }
     @Transactional
     public ResponseEntity<?> removeById(ObjectId myId, String username) {

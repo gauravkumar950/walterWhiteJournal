@@ -41,10 +41,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//    @GetMapping("/textToSpeech")
-//    public void convertTextToSpeech(){
-//        textToSpeechService.convertTextToSpeech();
-//    }
 
     @GetMapping("/read_journal")
     public ResponseEntity<?> readJournalAloud(){
