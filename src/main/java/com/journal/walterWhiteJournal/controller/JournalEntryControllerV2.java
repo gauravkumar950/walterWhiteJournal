@@ -5,6 +5,7 @@ import com.journal.walterWhiteJournal.entity.User;
 import com.journal.walterWhiteJournal.service.JournalEntryServices;
 import com.journal.walterWhiteJournal.service.TextToSpeechService;
 import com.journal.walterWhiteJournal.service.UserServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/journal")
+@Tag(name = "JOURNAL API's")
 public class JournalEntryControllerV2 {
 
     @Autowired

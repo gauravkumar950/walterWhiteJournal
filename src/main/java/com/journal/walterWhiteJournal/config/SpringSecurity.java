@@ -1,5 +1,6 @@
 package com.journal.walterWhiteJournal.config;
 
+import com.journal.walterWhiteJournal.Filter.JwtFilter;
 import com.journal.walterWhiteJournal.service.UserDetailsServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,7 +25,8 @@ public class SpringSecurity {
 
     @Autowired
     private UserDetailsServiceImp userDetailsService;
-    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtFilter jwtFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -31,9 +34,10 @@ public class SpringSecurity {
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/journal/**","/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
+                        .anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 

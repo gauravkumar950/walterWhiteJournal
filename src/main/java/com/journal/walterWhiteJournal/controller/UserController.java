@@ -7,6 +7,8 @@ import com.journal.walterWhiteJournal.service.JournalEntryServices;
 import com.journal.walterWhiteJournal.service.QuoteService;
 import com.journal.walterWhiteJournal.service.TextToSpeechService;
 import com.journal.walterWhiteJournal.service.UserServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "USER API's",description = "read,update & delete user details")
 public class UserController {
 
     @Autowired
@@ -55,6 +58,7 @@ public class UserController {
     }
 
     @PutMapping
+    @Operation(summary = "Update user details")
     public ResponseEntity<?> updateUser(@RequestBody User user){
         //the control has reached here means the user is valid and has passed the authentication
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -69,6 +73,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @DeleteMapping
+    @Operation(summary = "Delete user account")
     public ResponseEntity<?> deleteUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

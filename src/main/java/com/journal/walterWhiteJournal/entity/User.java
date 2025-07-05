@@ -1,8 +1,6 @@
 package com.journal.walterWhiteJournal.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.annotation.Id;
@@ -16,6 +14,7 @@ import java.util.List;
 
 @Document(collection = "users")
 @Data
+@NoArgsConstructor
 public class User {
     @Id
     private ObjectId id;

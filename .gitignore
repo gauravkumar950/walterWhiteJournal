@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Ignore resources directory
+src/main/resources/
 ### STS ###
 .apt_generated
 .classpath

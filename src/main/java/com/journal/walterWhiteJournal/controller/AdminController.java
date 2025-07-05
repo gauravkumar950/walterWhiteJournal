@@ -4,6 +4,7 @@ import com.journal.walterWhiteJournal.Repository.UserRepositoryImp;
 import com.journal.walterWhiteJournal.cache.AppCache;
 import com.journal.walterWhiteJournal.entity.User;
 import com.journal.walterWhiteJournal.service.UserServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@Tag(name = "ADMIN API's")
 public class AdminController {
 
     @Autowired

@@ -44,14 +44,19 @@ public class JournalEntryServices {
     public void saveEntry(@RequestBody JournalEntry newEntry){
         journalEntryRepo.save(newEntry);
     }
-
-    @Nullable
     public JournalEntry getById(ObjectId id) {
-            JournalEntry journal = journalEntryRepo.findById(id).orElse(null);
-            if(journal == null) return null;
-            redisServices.set(id.toString(),journal,300l);
-            return journal;
+        String cacheKey = "journal:" + id.toString();
+        JournalEntry cachedEntry = redisServices.get(cacheKey, JournalEntry.class);
 
+        if (cachedEntry != null) {
+            return cachedEntry;
+        }
+
+        JournalEntry entry = journalEntryRepo.findById(id).orElse(null);
+        if (entry != null) {
+            redisServices.set(cacheKey, entry, 3600L); // Cache for 1 hour
+        }
+        return entry;
     }
     @Transactional
     public ResponseEntity<?> removeById(ObjectId myId, String username) {
